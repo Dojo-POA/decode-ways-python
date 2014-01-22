@@ -1,15 +1,26 @@
+from itertools import combinations
+
 offset = 96
 
 def chr_from_int(n):
-  return chr(n+offset) if n != 0 else ''
+  if n == ():
+    return ''
+
+  x = int(''.join(list(n)))
+  if x <= 0 or x >= 27:
+    return ''
+  
+  return chr(x+offset) 
+
+def all_combinations(seq):
+  for x in xrange(len(seq)):
+    yield combinations(seq, x)
 
 def decode(something):
-  if something <= 10:
-    return [chr_from_int(something)]
-  else:
-    result = ["".join([chr_from_int(int(i)) for i in str(something)])]
+  digits = str(something)
+  head = digits[0]
+  if head == 1 or head == 2:
+    head+decode(something[1:]), decode
+  return result
 
-    if something < 27: 
-      result.append(chr_from_int(something))
 
-    return result

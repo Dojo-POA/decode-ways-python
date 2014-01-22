@@ -2,6 +2,14 @@ from main import *
 from nose.tools import assert_equals
 
 class TestGenerationOfPossibilities:
+  def test_chr_from_int_min(self):
+    assert_equals(chr_from_int(0), '')
+
+  def test_chr_from_int_max(self):
+    assert_equals(chr_from_int(27), '')
+    assert_equals(chr_from_int(80000), '')
+
+
   def test_single_digit(self):
     assert_equals(decode(1), ['a'])
     assert_equals(decode(2), ['b'])
@@ -16,6 +24,9 @@ class TestGenerationOfPossibilities:
   def test_two_digits(self):
     assert_equals(decode(10), ['j'])
     assert_equals(decode(11), ['aa', 'k'])
+
+  def xtest_three_digits(self):
+    assert_equals(decode(111), ['aaa', 'ak', 'ka'])
 
   def test_five_digits(self):
     assert_equals(decode(88888), ['hhhhh'])
